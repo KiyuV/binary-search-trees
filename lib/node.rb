@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Node
   include Comparable
   attr_accessor :left, :right
@@ -9,7 +11,7 @@ class Node
     @right = nil
   end
 
-  def <=>(node)
-    @data <=> node.data
+  def <=>(other)
+    @data <=> other.data
   end
 end
