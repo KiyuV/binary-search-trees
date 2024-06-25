@@ -1,0 +1,3 @@
+This project aims to implement a binary search treein Ruby.
+
+The goal is to build a balanced tree binary search tree (no duplicate values) with a number of methods, such as #find,. #level_order, etc...
