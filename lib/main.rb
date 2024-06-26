@@ -6,7 +6,7 @@ require './lib/tree'
 class Main
   def initialize
     @tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-    #@tree = Tree.new([])
+    # @tree = Tree.new([])
   end
 
   def run
@@ -17,6 +17,10 @@ class Main
     @tree.insert(22)
     @tree.insert(2)
     @tree.insert(323)
+    @tree.pretty_print
+    puts "\n- - - - - - - - - -"
+    puts
+    @tree.delete(8)
     @tree.pretty_print
   end
 end

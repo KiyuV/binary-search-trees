@@ -17,13 +17,17 @@ class Tree
     @root = insert_rec(@root, value)
   end
 
+  def delete(value)
+    delete_rec(@root, value)
+  end
+
   private
 
   def build_tree(array)
-    sorted_array = array.sort.uniq!
-    first = 0
     return nil if array.empty?
 
+    sorted_array = array.sort.uniq!
+    first = 0
     last = sorted_array.length - 1
 
     balanced_bst(sorted_array, first, last)
@@ -51,9 +55,43 @@ class Tree
     # prevent duplicate nodes from being insterted
     else
       puts "#{value} already exists"
-      root
     end
 
     root
+  end
+
+  def delete_rec(root, value)
+    return root if root.nil?
+
+    if value > root.data
+      root.right = delete_rec(root.right, value)
+    elsif value < root.data
+      root.left = delete_rec(root.left, value)
+    else
+      # node with only one child or no child
+      if root.right.nil?
+        return root.left
+      elsif root.left.nil?
+        return root.right
+      end
+
+      # node with two children
+      # change the data to the minimum of the right subtree
+      root.data = min_value(root.right)
+      # delete the inorder successor
+      root.right = delete_rec(root.right, root.data)
+    end
+
+    root
+  end
+
+  # finds the minimum value from a given node
+  def min_value(node)
+    min = node.data
+    until node.left.nil?
+      min = node.left.data
+      node = node.left
+    end
+    min
   end
 end
