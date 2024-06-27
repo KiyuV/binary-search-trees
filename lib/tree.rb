@@ -21,6 +21,33 @@ class Tree
     delete_rec(@root, value)
   end
 
+  def find(value)
+    find_rec(@root, value, nil) 
+  end
+
+  def level_order_iteration
+    queue = Array.[](@root)
+    result = []
+
+    until queue.empty?
+      current_node = queue.shift
+      queue << current_node.left unless current_node.left.nil?
+      queue << current_node.right unless current_node.right.nil?
+
+      if block_given?
+        yield current_node
+      else
+        result << current_node.data
+      end
+    end
+    result unless block_given?
+  end
+
+  def level_order(&block)
+    queue = Array.[](@root)
+    level_order_rec(queue, &block)
+  end
+
   private
 
   def build_tree(array)
@@ -93,5 +120,33 @@ class Tree
       node = node.left
     end
     min
+  end
+
+  def find_rec(root, value, result)
+    # base case
+    return result = root if root.nil? || root.data == value
+    # recurse right if the value is greater than the root
+    if value > root.data
+      find_rec(root.right, value, result)
+    # recurse left if the value is smaller than the root
+    elsif value < root.data
+      find_rec(root.left, value, result)
+    end
+  end
+
+  def level_order_rec(queue = [], result = [], &block)
+    return result if queue.empty?
+
+    current_node = queue.shift
+
+    queue << current_node.left unless current_node.left.nil?
+    queue << current_node.right unless current_node.right.nil?
+
+    if block_given?
+      yield current_node 
+    else
+      result << current_node.data
+    end
+    level_order_rec(queue, result, &block)
   end
 end

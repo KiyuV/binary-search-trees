@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require './lib/node'
 require './lib/tree'
 
 class Main
@@ -22,8 +21,15 @@ class Main
     puts
     @tree.delete(8)
     @tree.pretty_print
+
+    @tree.find(1)
+    @tree.find(0)
+
+    @tree.level_order_iteration
+    @tree.level_order 
   end
 end
 
 main = Main.new
 main.run
+ 
