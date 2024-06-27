@@ -22,7 +22,7 @@ class Tree
   end
 
   def find(value)
-    find_rec(@root, value, nil) 
+    find_rec(@root, value, nil)
   end
 
   def level_order_iteration
@@ -46,6 +46,18 @@ class Tree
   def level_order(&block)
     queue = Array.[](@root)
     level_order_rec(queue, &block)
+  end
+
+  def inorder(&block)
+    inorder_rec(@root, &block)
+  end
+
+  def preorder(&block)
+    preorder_rec(@root, &block)
+  end
+
+  def postorder(&block)
+    postorder_rec(@root, &block)
   end
 
   private
@@ -125,6 +137,7 @@ class Tree
   def find_rec(root, value, result)
     # base case
     return result = root if root.nil? || root.data == value
+
     # recurse right if the value is greater than the root
     if value > root.data
       find_rec(root.right, value, result)
@@ -143,10 +156,46 @@ class Tree
     queue << current_node.right unless current_node.right.nil?
 
     if block_given?
-      yield current_node 
+      yield current_node
     else
       result << current_node.data
     end
     level_order_rec(queue, result, &block)
+  end
+
+  def inorder_rec(root, result = [], &block)
+    return result if root.nil?
+
+    inorder_rec(root.left, result, &block)
+    if block_given?
+      yield root
+    else
+      result << root.data
+    end
+    inorder_rec(root.right, result, &block)
+  end
+
+  def preorder_rec(root, result = [], &block)
+    return result if root.nil?
+
+    if block_given?
+      yield root
+    else
+      result << root.data
+    end
+    preorder_rec(root.left, result, &block)
+    preorder_rec(root.right, result, &block)
+  end
+
+  def postorder_rec(root, result = [], &block)
+    return result if root.nil?
+
+    postorder_rec(root.left, result, &block)
+    postorder_rec(root.right, result, &block)
+    if block_given?
+      yield root
+    else
+      result << root.data
+    end
   end
 end

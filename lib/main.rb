@@ -26,10 +26,13 @@ class Main
     @tree.find(0)
 
     @tree.level_order_iteration
-    @tree.level_order 
+    @tree.level_order
+
+    @tree.inorder
+    @tree.preorder
+    @tree.postorder
   end
 end
 
 main = Main.new
 main.run
- 
