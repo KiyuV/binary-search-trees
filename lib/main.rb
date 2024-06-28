@@ -31,6 +31,9 @@ class Main
     @tree.inorder
     @tree.preorder
     @tree.postorder
+
+    @tree.height(9)
+    @tree.depth(2)
   end
 end
 

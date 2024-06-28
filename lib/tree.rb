@@ -60,6 +60,16 @@ class Tree
     postorder_rec(@root, &block)
   end
 
+  def height(value)
+    node = find(value)
+    height_rec(node)
+  end
+
+  def depth(value)
+    node = find(value)
+    depth_rec(@root, node)
+  end
+
   private
 
   def build_tree(array)
@@ -197,5 +207,28 @@ class Tree
     else
       result << root.data
     end
+  end
+
+  def height_rec(root)
+    # return 0 if the tree is empty or a leaf node was given/reached
+    return 0 if root.nil? || root.left.nil? && root.right.nil?
+
+    left_height = height_rec(root.left)
+    right_height = height_rec(root.right)
+
+    [left_height, right_height].max + 1
+  end
+
+  def depth_rec(root, node)
+    # return 0 when there is an empty tree or when the root equals to the target node
+    return 0 if node.nil? || root == node
+
+    if node > root
+      right_height = depth_rec(root.right, node)
+    elsif node < root
+      left_height = depth_rec(root.left, node)
+    end
+    # #compact to remove any nils in the array
+    [right_height, left_height].compact.max + 1
   end
 end
