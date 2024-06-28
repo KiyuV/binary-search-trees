@@ -77,13 +77,13 @@ class Tree
     left_height = height(@root.left.data)
     right_height = height(@root.right.data)
 
-    (left_height - right_height).abs > 1 ? false : true
+    (left_height - right_height).abs <= 1
   end
 
   def rebalance
-    unless balanced?
-      @root = build_tree(inorder)
-    end
+    return if balanced?
+
+    @root = build_tree(inorder)
   end
 
   private
