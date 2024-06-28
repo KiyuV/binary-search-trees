@@ -70,12 +70,28 @@ class Tree
     depth_rec(@root, node)
   end
 
+  def balanced?
+    # an empty tree is a height-balanced tree
+    return true if @root.nil?
+
+    left_height = height(@root.left.data)
+    right_height = height(@root.right.data)
+
+    (left_height - right_height).abs > 1 ? false : true
+  end
+
+  def rebalance
+    unless balanced?
+      @root = build_tree(inorder)
+    end
+  end
+
   private
 
   def build_tree(array)
     return nil if array.empty?
 
-    sorted_array = array.sort.uniq!
+    sorted_array = array.sort.uniq
     first = 0
     last = sorted_array.length - 1
 

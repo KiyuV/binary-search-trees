@@ -16,6 +16,9 @@ class Main
     @tree.insert(22)
     @tree.insert(2)
     @tree.insert(323)
+    @tree.insert(322)
+    @tree.insert(321)
+    @tree.insert(320)
     @tree.pretty_print
     puts "\n- - - - - - - - - -"
     puts
@@ -34,6 +37,14 @@ class Main
 
     @tree.height(9)
     @tree.depth(2)
+
+    @tree.balanced?
+    @tree.rebalance
+    @tree.balanced?
+
+    puts "\n- - - - - - - - - -"
+    puts
+    @tree.pretty_print
   end
 end
 
